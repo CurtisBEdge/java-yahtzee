@@ -47,6 +47,7 @@ public class Scorecard {
     }
 
     public int calculateScore(int[] diceHand, int scoreChoice) {
+        Arrays.sort(diceHand);
         if ((scoreChoice >= 1) && (scoreChoice <= 6)) {
             return calculateTopScores(diceHand, scoreChoice);
         } else if ((scoreChoice >= 7) && (scoreChoice <= 8)) {
@@ -90,26 +91,27 @@ public class Scorecard {
     }
 
     private int calculateFullHouse(int[] diceHand) {
+        if (diceHand[0] == diceHand[4]) //Checks if all dice are equal
+            return 25;
+        if ((diceHand[0] == diceHand[1] && diceHand[2] == diceHand[4]) //Checks if Full House is pair & 3 of a kind
+                || (diceHand[0] == diceHand[2] && diceHand[3] == diceHand[4]) ) //Checks if Full House is 3 of a kind & pair
+            return 25;
         return 0;
     }
 
     private int calculateStraight(int[] diceHand, int scoreChoice) {
+        for (int i = 0; i < 5; i++)
+        {
+            if (diceHand[i] != (diceHand[i + 1] - 1)) return 0;
+        }
         return 0;
     }
 
     private int calculateYahtzee(int[] diceHand) {
-        for (int i = 1; i < 7 ; i++) {
-            int count = 0;
-            for (int j = 0; j < 6; j++) {
-                if (diceHand[j] == i) {
-                    count ++;
-                }
-            }
-            if (count == 5) {
-                return 50;
-            }
-        }
-        return 0;
+        for (int i = 0; i < 4; i++)
+            if(diceHand[i] != diceHand[i+1]) return 0;
+
+        return 50;
     }
 
     private int calculateDiceTotal(int[] diceHand) {
