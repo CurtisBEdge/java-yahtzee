@@ -1,19 +1,19 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Game {
 
-    private Scanner sc = new Scanner(System.in);
+    private final PlayerInput input;
     private Integer numberOfPlayers;
 
-    private ArrayList<Player> players;
+    private ArrayList<Player> playerList;
 
     private Integer roundNumber;
 
     public Game() {
         this.roundNumber = 1;
         this.numberOfPlayers = 0;
-        this.players = new ArrayList<>();
+        this.playerList = new ArrayList<>();
+        this.input = new PlayerInput();
     }
 
     public Integer getNumberOfPlayers() {
@@ -21,16 +21,7 @@ public class Game {
     }
 
     public void setNumberOfPlayers() {
-        do {
-            System.out.println("How many players are there?");
-            System.out.println("Enter a number between 1 and 4.");
-            String input = sc.nextLine();
-            if ((input.equals("1")) || (input.equals("2")) || (input.equals("3")) || (input.equals("4"))) {
-                this.numberOfPlayers = Integer.parseInt(input);
-            } else {
-                System.out.println("I'm sorry, that's not a valid player number");
-            }
-        } while (this.numberOfPlayers == 0);
+        numberOfPlayers = input.setNumberOfPlayers();
     }
 
     public Integer getRoundNumber() {
@@ -41,21 +32,22 @@ public class Game {
         this.roundNumber ++;
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
     }
 
     public void setPlayers() {
         for (int i = 0; i < numberOfPlayers; i++) {
             Player player = new Player();
-            player.setPlayerName();
+            String newPlayerName = input.inputName(player.getPlayerNumber());
+            player.setPlayerName(newPlayerName);
             System.out.println("Welcome " + player.getPlayerName());
-            players.add(player);
+            playerList.add(player);
         }
     }
 
     public void runRound() {
-        players.forEach(Player::runTurn);
+        playerList.forEach(Player::runTurn);
 
     }
 

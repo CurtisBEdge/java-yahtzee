@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Player {
 
-    private Scanner sc = new Scanner(System.in);
+    private final PlayerInput input;
     private static Integer playerCount = 1;
 
     private Integer playerNumber;
@@ -13,6 +13,7 @@ public class Player {
 
     public Player() {
         this.scorecard = new Scorecard();
+        this.input = new PlayerInput();
         this.playerNumber = playerCount;
         playerCount ++;
     }
@@ -21,18 +22,12 @@ public class Player {
         return playerNumber;
     }
 
-    public void setPlayerNumber(Integer playerNumber) {
-        this.playerNumber = playerNumber;
-    }
-
-
     public String getPlayerName() {
         return playerName;
     }
 
-    public void setPlayerName() {
-        System.out.println("Please enter the name of Player " + getPlayerNumber());
-        this.playerName = sc.nextLine();
+    public void setPlayerName(String newPlayerName) {
+        this.playerName = newPlayerName;
     }
 
     public void runTurn() {
@@ -40,6 +35,7 @@ public class Player {
         boolean[] diceChoices = {false, false, false, false, false};
         int[] diceHand = {0, 0, 0, 0, 0};
         scorecard.printScorecard();
+        System.out.println("It's " + playerName + "'s turn.");
         do {
             diceHand = diceRolls(diceChoices, diceHand);
             System.out.println("Which would you like to keep? Enter 1 - 5, 6 to reroll all and 0 to keep all.");
@@ -70,7 +66,7 @@ public class Player {
 
     private boolean[] chooseDice() {
         boolean[] diceChoices = {false, false, false, false, false};
-        String choiceInput = sc.nextLine();
+        String choiceInput = input.inputDiceChoice();
         if (choiceInput.contains("6")) {
             System.out.println(Arrays.toString(diceChoices));
             return diceChoices;
