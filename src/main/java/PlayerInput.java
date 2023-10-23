@@ -29,6 +29,7 @@ public class PlayerInput {
     }
 
     //need to add input validation for this method. Needs to fail if the input contains any characters that aren't 1, 2, 3, 4, 5, 6 or 0.
+    //could make a list of the input, then iterate through it to make sure all characters are correct, then return the string.
     public String inputDiceChoice(){
         System.out.println("Which would you like to keep? Enter 1 - 5, 6 to reroll all and 0 to keep all.");
         String input = null;
