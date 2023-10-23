@@ -31,6 +31,10 @@ public class Scorecard {
         scorecard.set((scoreChoice - 1), Integer.toString(score));
     }
 
+    public String getScore(int scoreCategory){
+        return scorecard.get(scoreCategory);
+    }
+
     public void printScorecard() {
         for (int i = 0; i < scoreCategory.length; i++) {
             if (i == 6) {

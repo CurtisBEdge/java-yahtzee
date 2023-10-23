@@ -38,7 +38,6 @@ public class Player {
         System.out.println("It's " + playerName + "'s turn.");
         do {
             diceHand = diceRolls(diceChoices, diceHand);
-            System.out.println("Which would you like to keep? Enter 1 - 5, 6 to reroll all and 0 to keep all.");
             diceChoices = chooseDice();
             rolls ++;
             System.out.println(rolls);
@@ -46,7 +45,7 @@ public class Player {
         } while ((rolls < 3) & (!keepAllDice(diceChoices)));
         scorecard.printScorecard();
         printDice(diceHand);
-        int scoreChoice = 1;
+        int scoreChoice = chooseScorecardCategory();
         int calculatedScore = scorecard.calculateScore(diceHand, scoreChoice);
         enterScore(scoreChoice, calculatedScore);
 
@@ -101,6 +100,20 @@ public class Player {
             System.out.print(diceHand[i] + ", ");
         }
         System.out.println();
+    }
+
+
+    private int chooseScorecardCategory() {
+        boolean scoreChoiceValid = false;
+        int categoryChoice = 0;
+        do {
+            categoryChoice = input.inputScoreChoice();
+            if (scorecard.getScore(categoryChoice - 1).equals(" ")) {
+
+            };
+        }
+        while (!scoreChoiceValid);
+
     }
 
     private void enterScore(int scoreChoice, int calculatedScore) {

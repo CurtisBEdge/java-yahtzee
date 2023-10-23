@@ -12,5 +12,5 @@ public class Main {
             System.out.println(game.getRoundNumber());
         } while (game.getRoundNumber() <= 13);
     }
-    // you're up to working out the scores of a dice hand
+    // you're up to Player.chooseScorecardCatergory() validating input etc.
 }

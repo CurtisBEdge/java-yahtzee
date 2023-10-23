@@ -28,18 +28,20 @@ public class PlayerInput {
         return sc.nextLine();
     }
 
+    //need to add input validation for this method. Needs to fail if the input contains any characters that aren't 1, 2, 3, 4, 5, 6 or 0.
     public String inputDiceChoice(){
         System.out.println("Which would you like to keep? Enter 1 - 5, 6 to reroll all and 0 to keep all.");
         String input = null;
-        String validCharacters = "1" + "2" + "3" + "4" + "5" + "6" + "0";
         while(true){
             input = sc.nextLine();
-            if (input.matches(validCharacters)){
-                return input;
-            }
-            else {
-                System.out.println("I'm sorry, that isn't a valid input.");
-            }
+            return input;
+            //System.out.println("I'm sorry, that isn't a valid input.");
         }
     }
+
+    public int inputScoreChoice(){
+        System.out.println("Enter the category number you wish to place your score.");
+        return Integer.parseInt(sc.nextLine());
+    }
 }
+
