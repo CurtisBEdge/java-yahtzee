@@ -50,7 +50,7 @@ public class Scorecard {
         System.out.println();
     }
 
-    public int calculateFinalScore(int[] diceHand, int scoreChoice) {
+    public int calculateScore(int[] diceHand, int scoreChoice) {
         Arrays.sort(diceHand);
         if ((scoreChoice >= 1) && (scoreChoice <= 6)) {
             return calculateTopScores(diceHand, scoreChoice);

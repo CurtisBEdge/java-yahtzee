@@ -48,7 +48,7 @@ public class Player {
         scorecard.printScorecard();
         printDice(diceHand);
         int scoreChoice = chooseScorecardCategory();
-        int calculatedScore = scorecard.calculateFinalScore(diceHand, scoreChoice);
+        int calculatedScore = scorecard.calculateScore(diceHand, scoreChoice);
         enterScore(scoreChoice, calculatedScore);
 
     }
