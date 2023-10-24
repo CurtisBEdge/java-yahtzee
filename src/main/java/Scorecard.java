@@ -50,7 +50,7 @@ public class Scorecard {
         System.out.println();
     }
 
-    public int calculateScore(int[] diceHand, int scoreChoice) {
+    public int calculateFinalScore(int[] diceHand, int scoreChoice) {
         Arrays.sort(diceHand);
         if ((scoreChoice >= 1) && (scoreChoice <= 6)) {
             return calculateTopScores(diceHand, scoreChoice);
@@ -104,11 +104,19 @@ public class Scorecard {
     }
 
     private int calculateStraight(int[] diceHand, int scoreChoice) {
-        for (int i = 0; i < 5; i++)
-        {
-            if (diceHand[i] != (diceHand[i + 1] - 1)) return 0;
+        int straightCount = 0;
+
+        for (int i =0; i < 4; i++){
+            if (diceHand[i] == (diceHand[i + 1] - 1)) straightCount++;
         }
-        return 0;
+
+        if ((scoreChoice == 10) && straightCount >= 3)
+            return 30;
+        else if ((scoreChoice == 11) && straightCount == 4)
+            return 40;
+        else
+            return 0;
+
     }
 
     private int calculateYahtzee(int[] diceHand) {
@@ -120,6 +128,19 @@ public class Scorecard {
 
     private int calculateDiceTotal(int[] diceHand) {
         return Arrays.stream(diceHand).sum();
+    }
+
+    public int calculateFinalScore() {
+        int totalScore = 0;
+        for (int i = 0; i < 6; i++) {
+            totalScore = totalScore + Integer.parseInt(scorecard.get(i));
+        }
+        if (totalScore >= 35) totalScore += 35;
+
+        for (int j = 6; j < 13 ; j++) {
+            totalScore += Integer.parseInt(scorecard.get(j));
+        }
+        return totalScore;
     }
 
 }

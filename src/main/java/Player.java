@@ -11,6 +11,8 @@ public class Player {
 
     private String playerName;
 
+    private int finalScore;
+
     public Player() {
         this.scorecard = new Scorecard();
         this.input = new PlayerInput();
@@ -46,7 +48,7 @@ public class Player {
         scorecard.printScorecard();
         printDice(diceHand);
         int scoreChoice = chooseScorecardCategory();
-        int calculatedScore = scorecard.calculateScore(diceHand, scoreChoice);
+        int calculatedScore = scorecard.calculateFinalScore(diceHand, scoreChoice);
         enterScore(scoreChoice, calculatedScore);
 
     }
@@ -104,19 +106,26 @@ public class Player {
 
 
     private int chooseScorecardCategory() {
-        boolean scoreChoiceValid = false;
-        int categoryChoice = 0;
-        do {
-            categoryChoice = input.inputScoreChoice();
-            if (scorecard.getScore(categoryChoice - 1).equals(" ")) {
-
-            };
+        while (true) {
+            try {
+                int categoryChoice = input.inputScoreChoice();
+                if (scorecard.getScore(categoryChoice - 1).isEmpty()) {
+                    return categoryChoice;
+                }
+            }
+            catch(Exception e) {
+                System.out.println("I'm sorry, that's not a valid score category. Please try again");
+                }
         }
-        while (!scoreChoiceValid);
-
     }
 
     private void enterScore(int scoreChoice, int calculatedScore) {
         scorecard.setScore(scoreChoice, calculatedScore);
+    }
+
+    public int calculateFinalScore() {
+        finalScore = scorecard.calculateFinalScore();
+        System.out.println(playerName + ", you scored " + finalScore);
+        return finalScore;
     }
 }

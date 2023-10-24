@@ -51,4 +51,8 @@ public class Game {
 
     }
 
+    public void calculateWinner() {
+        playerList.forEach(Player::calculateFinalScore);
+    }
+
 }
