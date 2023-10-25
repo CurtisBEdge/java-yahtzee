@@ -14,6 +14,5 @@ public class Main {
 
     }
     // you're up to game.calculateWinner. Need to handle a draw.
-    //Notes - need to sort validation on which dice in a hand to keep. Currently, allows input of random characters.
     //More Tests!
 }

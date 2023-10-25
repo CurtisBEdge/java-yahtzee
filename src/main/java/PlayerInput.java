@@ -5,9 +5,7 @@ public class PlayerInput {
     private final Scanner sc = new Scanner(System.in);
 
     public PlayerInput()
-    {
-
-    }
+    {}
 
     public int setNumberOfPlayers() {
         while (true) {
@@ -28,15 +26,26 @@ public class PlayerInput {
         return sc.nextLine();
     }
 
-    //need to add input validation for this method. Needs to fail if the input contains any characters that aren't 1, 2, 3, 4, 5, 6 or 0.
-    //could make a list of the input, then iterate through it to make sure all characters are correct, then return the string.
     public String inputDiceChoice(){
-        System.out.println("Which would you like to keep? Enter 1 - 5, 6 to reroll all and 0 to keep all.");
-        String input = null;
-        while(true){
+        String input;
+        String acceptedCharacters = "0 1 2 3 4 5 6";
+        boolean inputValid = true;
+        while(true) {
+            System.out.println("Which would you like to keep? Enter 1 - 5, 6 to reroll all and 0 to keep all.");
             input = sc.nextLine();
-            return input;
-            //System.out.println("I'm sorry, that isn't a valid input.");
+            String[] validateInput = input.split(" ");
+            for (String s : validateInput) {
+                if (!acceptedCharacters.contains(s)) {
+                    inputValid = false;
+                    break;
+                }
+            }
+
+            if (inputValid)
+                return input;
+            else {
+                System.out.println("I'm sorry, that isn't a valid input.");
+            }
         }
     }
 
