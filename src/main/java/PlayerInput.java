@@ -12,7 +12,6 @@ public class PlayerInput {
             System.out.println("How many players are there?");
             System.out.println("Enter a number between 1 and 4.");
             String input = sc.nextLine();
-            System.out.println(input);
             if ((input.equals("1")) || (input.equals("2")) || (input.equals("3")) || (input.equals("4"))) {
                 return Integer.parseInt(input);
             } else {

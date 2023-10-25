@@ -3,19 +3,19 @@ import java.util.*;
 public class Scorecard {
 
     private static String[] scoreCategory = {
-            "Ones",
-            "Twos",
-            "Threes",
-            "Fours",
-            "Fives",
-            "Sixes",
-            "3 of a Kind",
-            "4 of a Kind",
-            "Full House",
-            "Low Straight",
-            "High Straight",
-            "Yahtzee",
-            "Chance"};
+            "1. Ones",
+            "2. Twos",
+            "3. Threes",
+            "4. Fours",
+            "5. Fives",
+            "6. Sixes",
+            "7. 3 of a Kind",
+            "8. 4 of a Kind",
+            "9. Full House",
+            "10. Low Straight",
+            "11. High Straight",
+            "12. Yahtzee",
+            "13. Chance"};
 
     private List<String> scorecard;
 

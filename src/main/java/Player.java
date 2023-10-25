@@ -42,8 +42,6 @@ public class Player {
             diceHand = diceRolls(diceChoices, diceHand);
             diceChoices = chooseDice();
             rolls ++;
-            System.out.println(rolls);
-            System.out.println(keepAllDice(diceChoices));
         } while ((rolls < 3) & (!keepAllDice(diceChoices)));
         scorecard.printScorecard();
         printDice(diceHand);
@@ -69,7 +67,6 @@ public class Player {
         boolean[] diceChoices = {false, false, false, false, false};
         String choiceInput = input.inputDiceChoice();
         if (choiceInput.contains("6")) {
-            System.out.println(Arrays.toString(diceChoices));
             return diceChoices;
         }
         else if (choiceInput.contains("0")) {
@@ -83,7 +80,6 @@ public class Player {
                 }
             }
         }
-        System.out.println(Arrays.toString(diceChoices));
         return diceChoices;
     }
 

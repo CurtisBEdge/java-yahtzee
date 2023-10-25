@@ -7,9 +7,9 @@ public class Main {
         game.setNumberOfPlayers();
         game.setPlayers();
         do {
+            System.out.println("Round " + game.getRoundNumber());
             game.runRound();
             game.setRoundNumber();
-            System.out.println(game.getRoundNumber());
         } while (game.getRoundNumber() <= 13);
 
     }
