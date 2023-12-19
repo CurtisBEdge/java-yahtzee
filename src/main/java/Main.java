@@ -11,8 +11,10 @@ public class Main {
             game.runRound();
             game.setRoundNumber();
         } while (game.getRoundNumber() <= 13);
+        game.calculateWinner();
 
     }
     // you're up to game.calculateWinner. Need to handle a draw.
+    //Found bug where if you enter an incorrect response for where to put dice, it gets stuck in a loop
     //More Tests!
 }
