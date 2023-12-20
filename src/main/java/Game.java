@@ -55,7 +55,7 @@ public class Game {
         int winningScore = 0;
         int winningPlayer = 5;
 
-        for (int i = 0; i < playerList.size() - 1; i++) {
+        for (int i = 0; i < playerList.size(); i++) {
             int playerScore = playerList.get(i).calculateFinalScore();
             if(playerScore > winningScore) {
                 winningScore = playerScore;
@@ -70,7 +70,7 @@ public class Game {
             System.out.println("It's a Draw!");
             }
         else {
-            System.out.println("Congratulations" + playerList.get(winningPlayer).getPlayerName() + "! You Win!");
+            System.out.println("Congratulations " + playerList.get(winningPlayer).getPlayerName() + "! You Win!");
         }
         }
 }
