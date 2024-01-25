@@ -1,11 +1,18 @@
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
+
+import static org.mockito.Mockito.when;
 
 
 class PlayerTest {
+
+    @Mock
+    private PlayerInput inputMock;
 
     @Test
     void diceRollsReRollsAllDice() {
@@ -23,5 +30,13 @@ class PlayerTest {
         assert (!anyZeros);
     }
 
+    @Test
+    void chooseDiceRerollAll() {
+        Player player = new Player();
+        String fakeInput = "1 3 5 0";
+        when(inputMock.inputDiceChoice()).thenReturn(String.valueOf(fakeInput));
+        boolean[] diceChoices = inputMock.inputDiceChoice();
+
+    }
 
 }
