@@ -47,7 +47,9 @@ public class Game {
     }
 
     public void runRound() {
-        playerList.forEach(Player::runTurn);
+        playerList.forEach(Player -> {
+            runRound();
+        });
 
     }
 
