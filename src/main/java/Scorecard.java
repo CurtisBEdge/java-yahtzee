@@ -106,6 +106,7 @@ public class Scorecard {
     private int calculateStraight(int[] diceHand, int scoreChoice) {
         int straightCount = 0;
 
+        //Calculates the amount of consecutive numbers are in the hand
         for (int i =0; i < 4; i++){
             if (diceHand[i] == (diceHand[i + 1] - 1)) straightCount++;
         }

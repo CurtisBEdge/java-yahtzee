@@ -30,6 +30,7 @@ public class PlayerInput {
         String acceptedCharacters = "0 1 2 3 4 5 6";
         boolean inputValid = true;
         while(true) {
+            inputValid = true;
             System.out.println("Which would you like to keep? Enter 1 - 5, 6 to reroll all and 0 to keep all.");
             input = sc.nextLine();
             String[] validateInput = input.split(" ");

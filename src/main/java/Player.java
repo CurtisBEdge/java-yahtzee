@@ -63,7 +63,7 @@ public class Player {
         return diceHand;
     }
 
-    private boolean[] chooseDice() {
+    public boolean[] chooseDice() {
         boolean[] diceChoices = {false, false, false, false, false};
         String choiceInput = input.inputDiceChoice();
         if (choiceInput.contains("6")) {
@@ -101,7 +101,7 @@ public class Player {
     }
 
 
-    private int chooseScorecardCategory() {
+    public int chooseScorecardCategory() {
         while (true) {
             try {
                 int categoryChoice = input.inputScoreChoice();

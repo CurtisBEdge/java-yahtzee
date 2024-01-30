@@ -52,7 +52,25 @@ public class Game {
     }
 
     public void calculateWinner() {
-        playerList.forEach(Player::calculateFinalScore);
-    }
+        int winningScore = 0;
+        int winningPlayer = 5;
 
+        for (int i = 0; i < playerList.size(); i++) {
+            int playerScore = playerList.get(i).calculateFinalScore();
+            if(playerScore > winningScore) {
+                winningScore = playerScore;
+                winningPlayer = i;
+                }
+            else if(playerScore == winningScore) {
+                winningPlayer = 5;
+            }
+        }
+
+        if (winningPlayer == 5) {
+            System.out.println("It's a Draw!");
+            }
+        else {
+            System.out.println("Congratulations " + playerList.get(winningPlayer).getPlayerName() + "! You Win!");
+        }
+        }
 }
