@@ -35,7 +35,7 @@ class PlayerTest {
         Player player = new Player();
         String fakeInput = "1 3 5 0";
         when(inputMock.inputDiceChoice()).thenReturn(String.valueOf(fakeInput));
-        boolean[] diceChoices = inputMock.inputDiceChoice();
+
 
     }
 
