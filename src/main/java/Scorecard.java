@@ -109,6 +109,7 @@ public class Scorecard {
         //Calculates the amount of consecutive numbers are in the hand
         for (int i =0; i < 4; i++){
             if (diceHand[i] == (diceHand[i + 1] - 1)) straightCount++;
+            else if (diceHand[i] < (diceHand[i + 1] -1 )) straightCount = 0;
         }
 
         if ((scoreChoice == 10) && straightCount >= 3)
@@ -136,7 +137,7 @@ public class Scorecard {
         for (int i = 0; i < 6; i++) {
             totalScore = totalScore + Integer.parseInt(scorecard.get(i));
         }
-        if (totalScore >= 35) totalScore += 35;
+        if (totalScore >= 63) totalScore += 35;
 
         for (int j = 6; j < 13 ; j++) {
             totalScore += Integer.parseInt(scorecard.get(j));
