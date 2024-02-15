@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 
@@ -35,6 +36,9 @@ class PlayerTest {
         Player player = new Player();
         String fakeInput = "1 3 5 0";
         when(inputMock.inputDiceChoice()).thenReturn(String.valueOf(fakeInput));
+        boolean[] diceChoices = player.chooseDice();
+        assertEquals({true, true, true, true, true}, diceChoices);
+
 
 
     }
