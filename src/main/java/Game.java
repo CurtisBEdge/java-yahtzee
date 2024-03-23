@@ -5,6 +5,8 @@ public class Game {
     private final PlayerInput input;
     private Integer numberOfPlayers;
 
+    private Integer numberOfAIPlayers;
+
     private ArrayList<Player> playerList;
 
     private Integer roundNumber;
@@ -12,6 +14,7 @@ public class Game {
     public Game() {
         this.roundNumber = 1;
         this.numberOfPlayers = 0;
+        this.numberOfAIPlayers = 0;
         this.playerList = new ArrayList<>();
         this.input = new PlayerInput();
     }
@@ -22,6 +25,14 @@ public class Game {
 
     public void setNumberOfPlayers() {
         numberOfPlayers = input.setNumberOfPlayers();
+    }
+
+    public Integer getNumberOfAIPlayers() {
+        return numberOfAIPlayers;
+    }
+
+    public void setNumberOfAIPlayers() {
+        numberOfPlayers = input.setNumberOfAIPlayers();
     }
 
     public Integer getRoundNumber() {
@@ -43,6 +54,11 @@ public class Game {
             player.setPlayerName(newPlayerName);
             System.out.println("Welcome " + player.getPlayerName());
             playerList.add(player);
+        }
+
+        for (int i =0; i < numberOfAIPlayers; i++) {
+            AIPlayer ai = new AIPlayer();
+            playerList.add(ai);
         }
     }
 

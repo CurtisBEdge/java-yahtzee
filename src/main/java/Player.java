@@ -2,16 +2,16 @@ import java.util.*;
 
 public class Player {
 
-    private final PlayerInput input;
-    private static Integer playerCount = 1;
+    public final PlayerInput input;
+    public static Integer playerCount = 1;
 
-    private Integer playerNumber;
+    public Integer playerNumber;
 
-    private Scorecard scorecard;
+    public Scorecard scorecard;
 
-    private String playerName;
+    public String playerName;
 
-    private int finalScore;
+    public int finalScore;
 
     public Player() {
         this.scorecard = new Scorecard();

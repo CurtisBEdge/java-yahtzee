@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello and welcome to Yahtzee!");
         game.setNumberOfPlayers();
+        game.setNumberOfAIPlayers();
         game.setPlayers();
         do {
             System.out.println("Round " + game.getRoundNumber());
