@@ -1,5 +1,8 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,7 +16,7 @@ import static org.mockito.Mockito.when;
 class PlayerTest {
 
     @Mock
-    private PlayerInput inputMock;
+    private PlayerInput playerInputMock;
 
     @Test
     void diceRollsReRollsAllDice() {
@@ -35,9 +38,10 @@ class PlayerTest {
     void chooseDiceRerollAll() {
         Player player = new Player();
         String fakeInput = "1 3 5 0";
-        when(inputMock.inputDiceChoice()).thenReturn(String.valueOf(fakeInput));
+        boolean[] expectedChoices = {true, true, true, true, true};
+        when(playerInputMock.inputDiceChoice()).thenReturn(fakeInput);
         boolean[] diceChoices = player.chooseDice();
-        assertEquals({true, true, true, true, true}, diceChoices);
+        assertEquals(expectedChoices, diceChoices);
 
 
 
