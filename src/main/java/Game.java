@@ -32,7 +32,7 @@ public class Game {
     }
 
     public void setNumberOfAIPlayers() {
-        numberOfPlayers = input.setNumberOfAIPlayers();
+        numberOfAIPlayers = input.setNumberOfAIPlayers();
     }
 
     public Integer getRoundNumber() {
@@ -63,7 +63,21 @@ public class Game {
     }
 
     public void runRound() {
-        playerList.forEach(Player::runTurn);
+    //    for (int i = 0; i < playerList.size(); i++) {
+    //       if (playerList[i] instanceof AIPlayer) {
+    //
+    //        }
+    //    }
+        int playerListSize = playerList.size();
+        System.out.println(playerListSize);
+        playerList.forEach(player -> {
+            if (player instanceof AIPlayer) {
+                System.out.println("AIPlayer");
+                ((AIPlayer) player).runAITurn();}
+            else {player.runHumanTurn();}
+        });
+
+        // playerList.forEach(Player::runHumanTurn);
 
     }
 

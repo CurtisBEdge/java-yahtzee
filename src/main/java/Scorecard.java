@@ -27,6 +27,8 @@ public class Scorecard {
         this.scorecard = scorecardList;
     }
 
+    public String getScoreCategory(int categoryChoice) {return scoreCategory[categoryChoice];}
+
     public void setScore(int scoreChoice, int score) {
         scorecard.set((scoreChoice - 1), Integer.toString(score));
     }
