@@ -83,7 +83,7 @@ public class Player {
         return diceChoices;
     }
 
-    private boolean keepAllDice(boolean[] diceChoices) {
+    public boolean keepAllDice(boolean[] diceChoices) {
         for (int i = 0; i < 5; i++) {
             if (!diceChoices[i]) {
                 return false;

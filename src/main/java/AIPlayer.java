@@ -12,11 +12,14 @@ public class AIPlayer extends Player {
 
 
     public void runAITurn() {
-
+        int rolls = 1;
         boolean[] diceChoices = {false, false, false, false, false};
         int[] diceHand = {0, 0, 0, 0, 0};
         System.out.println("It's " + playerName + "'s turn");
-        diceHand = diceRolls(diceChoices, diceHand);
+        do {
+            diceHand = diceRolls(diceChoices, diceHand);
+            rolls ++;
+        } while ((rolls < 3) & (!keepAllDice(diceChoices)));
         printDice(diceHand);
         int scoreChoice = aIChooseCategory(diceHand);
         System.out.println(scoreChoice);
