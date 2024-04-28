@@ -8,11 +8,20 @@ public class PlayerInput {
     {}
 
     public int setNumberOfPlayers() {
+        System.out.println("How many players are there?");
+        return enterNumber();
+    }
+
+    public int setNumberOfAIPlayers() {
+        System.out.println("How many AI players would you like?");
+        return enterNumber();
+    }
+
+    private int enterNumber() {
         while (true) {
-            System.out.println("How many players are there?");
             System.out.println("Enter a number between 1 and 4.");
             String input = sc.nextLine();
-            if ((input.equals("1")) || (input.equals("2")) || (input.equals("3")) || (input.equals("4"))) {
+            if ((input.equals("0")) || (input.equals("1")) || (input.equals("2")) || (input.equals("3")) || (input.equals("4"))) {
                 return Integer.parseInt(input);
             } else {
                 System.out.println("I'm sorry, that's not a valid player number");

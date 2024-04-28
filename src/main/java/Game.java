@@ -5,6 +5,8 @@ public class Game {
     private final PlayerInput input;
     private Integer numberOfPlayers;
 
+    private Integer numberOfAIPlayers;
+
     private ArrayList<Player> playerList;
 
     private Integer roundNumber;
@@ -12,6 +14,7 @@ public class Game {
     public Game() {
         this.roundNumber = 1;
         this.numberOfPlayers = 0;
+        this.numberOfAIPlayers = 0;
         this.playerList = new ArrayList<>();
         this.input = new PlayerInput();
     }
@@ -22,6 +25,14 @@ public class Game {
 
     public void setNumberOfPlayers() {
         numberOfPlayers = input.setNumberOfPlayers();
+    }
+
+    public Integer getNumberOfAIPlayers() {
+        return numberOfAIPlayers;
+    }
+
+    public void setNumberOfAIPlayers() {
+        numberOfAIPlayers = input.setNumberOfAIPlayers();
     }
 
     public Integer getRoundNumber() {
@@ -44,10 +55,29 @@ public class Game {
             System.out.println("Welcome " + player.getPlayerName());
             playerList.add(player);
         }
+
+        for (int i =0; i < numberOfAIPlayers; i++) {
+            AIPlayer ai = new AIPlayer();
+            playerList.add(ai);
+        }
     }
 
     public void runRound() {
-        playerList.forEach(Player::runTurn);
+    //    for (int i = 0; i < playerList.size(); i++) {
+    //       if (playerList[i] instanceof AIPlayer) {
+    //
+    //        }
+    //    }
+        int playerListSize = playerList.size();
+        System.out.println(playerListSize);
+        playerList.forEach(player -> {
+            if (player instanceof AIPlayer) {
+                System.out.println("AIPlayer");
+                ((AIPlayer) player).runAITurn();}
+            else {player.runHumanTurn();}
+        });
+
+        // playerList.forEach(Player::runHumanTurn);
 
     }
 

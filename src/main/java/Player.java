@@ -2,16 +2,16 @@ import java.util.*;
 
 public class Player {
 
-    private final PlayerInput input;
-    private static Integer playerCount = 1;
+    public final PlayerInput input;
+    public static Integer playerCount = 1;
 
-    private Integer playerNumber;
+    public Integer playerNumber;
 
-    private Scorecard scorecard;
+    public Scorecard scorecard;
 
-    private String playerName;
+    public String playerName;
 
-    private int finalScore;
+    public int finalScore;
 
     public Player() {
         this.scorecard = new Scorecard();
@@ -32,7 +32,7 @@ public class Player {
         this.playerName = newPlayerName;
     }
 
-    public void runTurn() {
+    public void runHumanTurn() {
         int rolls = 1;
         boolean[] diceChoices = {false, false, false, false, false};
         int[] diceHand = {0, 0, 0, 0, 0};
@@ -83,7 +83,7 @@ public class Player {
         return diceChoices;
     }
 
-    private boolean keepAllDice(boolean[] diceChoices) {
+    public boolean keepAllDice(boolean[] diceChoices) {
         for (int i = 0; i < 5; i++) {
             if (!diceChoices[i]) {
                 return false;
@@ -92,7 +92,7 @@ public class Player {
         return true;
     }
 
-    private void printDice(int[] diceHand) {
+    public void printDice(int[] diceHand) {
         System.out.println("Your dice are:");
         for (int i = 0; i < 5; i++) {
             System.out.print(diceHand[i] + ", ");
@@ -115,7 +115,7 @@ public class Player {
         }
     }
 
-    private void enterScore(int scoreChoice, int calculatedScore) {
+    public void enterScore(int scoreChoice, int calculatedScore) {
         scorecard.setScore(scoreChoice, calculatedScore);
     }
 
