@@ -28,24 +28,22 @@ public class AIPlayer extends Player {
         scorecard.printScorecard();
     }
 
-    public float[] calculateAllOdds(int[] diceHand) {
+    public void calculateAllOdds(int[] diceHand) {
         float[] categoryOdds = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+        int[] diceCount = giveDiceCount(diceHand);
+        
         for(int i = 0; i < 13; i++) {
             if(scorecard.getScore(i).isEmpty()) {
                 if (i < 6) {
-                    categoryOdds[i] = calculateTopSectionOdds(diceHand, i);
-                }
-
-                if (i == 6 || i == 7) {
-                    calculateKindOdds(diceHand, i);
-                }
-
+                    categoryOdds[i] = calculateTopSectionOdds(diceCount, i);
+                }  
+                
             }
         }
-
-        return categoryOdds;
+        
+        
     }
+
 
         public int calculateOddsPointsRatio(int[] diceHand, float[] categoryOdds) {
         float[] scores = {3, 6, 9, 12, 15, 18, 25, 25, 25, 30, 40, scorecard.calculateDiceTotal()};
@@ -62,11 +60,19 @@ public class AIPlayer extends Player {
     public boolean[] chooseDiceToKeep(int[] diceHand, int chosenCategory){
         boolean[] diceChoices = {false, false, false, false, false};
         
-        if (chosenCategory < 6) {
+        if (chosenCategory < 6) { // Top section scores
             for(int i = 0; i < 6; i++) {
                 if (diceHand[i] == i + 1) {
                     diceChoices[i] = true;
                 } 
+            }
+        }
+        else if (chosenCategory == 11) { // Yahtzee scores
+            int yahtzeeDiceNumber = findHighestDiceCount(diceHand)
+            for(int i = 0; i < 5) {
+                if (diceHand[i] == yahtzeeDiceNumber) {
+                    diceChoices[i] = true;
+                }
             }
         }
         
@@ -74,20 +80,15 @@ public class AIPlayer extends Player {
     }
 
 
-    public float calculateTopSectionOdds(int[] diceHand, int category) {
-        int diceCount = 0;
-
-        for (int i = 0; i < 5; i++) {
-            if (diceHand[i] == category) diceCount ++;
-        }
-
-        if (diceCount >= 3) return 1;
-        if (diceCount == 2) return 0.421F;
-        if (diceCount == 1) return 0.132F;
-        if (diceCount == 0) return 0.035F;
-        else return 0;
-
+    public float calculateTopSectionOdds(int[] diceCount, int category) {
+        
+        if (diceCount[category] >= 3) return 1;
+        if (diceCount[category] == 2) return 0.421F;
+        if (diceCount[category] == 1) return 0.132F;
+        else return 0.035F;
+        
     }
+
 
     public float calculateKindOdds(int[] diceHand, int category) {
         int[] diceCount = giveDiceCount(diceHand);
@@ -112,17 +113,16 @@ public class AIPlayer extends Player {
     public float calculateYahtzeeOdds(int[] diceHand) {
         int[] diceCount = giveDiceCount(diceHand);
         int highestCount = findHighestDiceCount(diceCount);
-
+        
         switch(highestCount){
             case 5: return 1;
-            case 4: return 0.167F;
-            case 3: return 0.028F;
-            case 2: return 0.005F;
-            case 1: return 0.001F;
+            case 4: return 0.167;
+            case 3: return 0.028;
+            case 2: return 0.005;
+            case 1: return 0.001;
         }
-
-        return 0;
     }
+
 
     public int[] giveDiceCount(int[] diceHand) {
         int[] diceCount = {0, 0, 0, 0, 0, 0};
