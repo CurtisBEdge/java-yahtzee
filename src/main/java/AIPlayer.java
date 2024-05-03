@@ -47,6 +47,33 @@ public class AIPlayer extends Player {
         return categoryOdds;
     }
 
+        public int calculateOddsPointsRatio(int[] diceHand, float[] categoryOdds) {
+        float[] scores = {3, 6, 9, 12, 15, 18, 25, 25, 25, 30, 40, scorecard.calculateDiceTotal()};
+        float highestRatio = -1;
+        
+        for(int i = 0; i < 13; i++) {
+            scores[i] = scores[i] * categoryOdds[i];
+            if (scores[i] > highestRatio) {highestRatio = scores[i]};
+        }
+        
+        return highestRatio;
+    }
+
+    public boolean[] chooseDiceToKeep(int[] diceHand, int chosenCategory){
+        boolean[] diceChoices = {false, false, false, false, false};
+        
+        if (chosenCategory < 6) {
+            for(int i = 0; i < 6; i++) {
+                if (diceHand[i] == i + 1) {
+                    diceChoices[i] = true;
+                } 
+            }
+        }
+        
+        return diceChoices;    
+    }
+
+
     public float calculateTopSectionOdds(int[] diceHand, int category) {
         int diceCount = 0;
 
