@@ -18,6 +18,7 @@ public class AIPlayer extends Player {
         System.out.println("It's " + playerName + "'s turn");
         do {
             diceHand = diceRolls(diceChoices, diceHand);
+            diceChoices = aIChooseDice(diceHand);
             rolls ++;
         } while ((rolls < 3) & (!keepAllDice(diceChoices)));
         printDice(diceHand);
@@ -28,7 +29,15 @@ public class AIPlayer extends Player {
         scorecard.printScorecard();
     }
 
-    public void calculateAllOdds(int[] diceHand) {
+    public boolean[] aIChooseDice(int[] diceHand) {
+        float[] categoryOdds = calculateAllOdds(diceHand);
+        int chosenCategory = calculateOddsPointsRatio(diceHand, categoryOdds);
+
+        return chooseDiceToKeep(diceHand, chosenCategory);
+
+    }
+
+    public float[] calculateAllOdds(int[] diceHand) {
         float[] categoryOdds = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         int[] diceCount = giveDiceCount(diceHand);
         
@@ -36,12 +45,15 @@ public class AIPlayer extends Player {
             if(scorecard.getScore(i).isEmpty()) {
                 if (i < 6) {
                     categoryOdds[i] = calculateTopSectionOdds(diceCount, i);
-                }  
+                }
+                if (i == 12) {
+                    categoryOdds[i] = calculateYahtzeeOdds(diceCount);
+                } 
                 
             }
         }
         
-        
+        return categoryOdds;
     }
 
 
@@ -110,8 +122,7 @@ public class AIPlayer extends Player {
         return 0;
     }
 
-    public float calculateYahtzeeOdds(int[] diceHand) {
-        int[] diceCount = giveDiceCount(diceHand);
+    public float calculateYahtzeeOdds(int[] diceHand, int[] diceCount) {
         int highestCount = findHighestDiceCount(diceCount);
         
         switch(highestCount){
