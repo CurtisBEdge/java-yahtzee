@@ -47,7 +47,7 @@ public class AIPlayer extends Player {
                     categoryOdds[i] = calculateTopSectionOdds(diceCount, i);
                 }
                 if (i == 12) {
-                    categoryOdds[i] = calculateYahtzeeOdds(diceCount);
+                    categoryOdds[i] = calculateYahtzeeOdds(diceHand, diceCount);
                 } 
                 
             }
@@ -58,15 +58,19 @@ public class AIPlayer extends Player {
 
 
         public int calculateOddsPointsRatio(int[] diceHand, float[] categoryOdds) {
-        float[] scores = {3, 6, 9, 12, 15, 18, 25, 25, 25, 30, 40, scorecard.calculateDiceTotal()};
+        float[] scores = {3, 6, 9, 12, 15, 18, 25, 25, 25, 30, 40, scorecard.calculateDiceTotal(diceHand)};
         float highestRatio = -1;
+        int highestScoreCategory = 0;
         
         for(int i = 0; i < 13; i++) {
             scores[i] = scores[i] * categoryOdds[i];
-            if (scores[i] > highestRatio) {highestRatio = scores[i]};
+            if (scores[i] > highestRatio) {
+                highestRatio = scores[i];
+                highestScoreCategory = i;
+            };
         }
         
-        return highestRatio;
+        return highestScoreCategory;
     }
 
     public boolean[] chooseDiceToKeep(int[] diceHand, int chosenCategory){
@@ -80,8 +84,8 @@ public class AIPlayer extends Player {
             }
         }
         else if (chosenCategory == 11) { // Yahtzee scores
-            int yahtzeeDiceNumber = findHighestDiceCount(diceHand)
-            for(int i = 0; i < 5) {
+            int yahtzeeDiceNumber = findHighestDiceCount(diceHand);
+            for(int i = 0; i < 5; i++) {
                 if (diceHand[i] == yahtzeeDiceNumber) {
                     diceChoices[i] = true;
                 }
@@ -127,11 +131,12 @@ public class AIPlayer extends Player {
         
         switch(highestCount){
             case 5: return 1;
-            case 4: return 0.167;
-            case 3: return 0.028;
-            case 2: return 0.005;
-            case 1: return 0.001;
+            case 4: return 0.167F;
+            case 3: return 0.028F;
+            case 2: return 0.005F;
+            case 1: return 0.001F;
         }
+        return 0;
     }
 
 
