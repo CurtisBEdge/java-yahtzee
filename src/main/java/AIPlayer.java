@@ -46,6 +46,12 @@ public class AIPlayer extends Player {
                 if (i < 6) {
                     categoryOdds[i] = calculateTopSectionOdds(diceCount, i);
                 }
+
+                if ((i == 6) || (i == 7)){
+                    categoryOdds[i] = calculateTopSectionOdds(diceCount, i);
+                }
+
+
                 if (i == 12) {
                     categoryOdds[i] = calculateYahtzeeOdds(diceHand, diceCount);
                 } 
@@ -83,7 +89,13 @@ public class AIPlayer extends Player {
                 } 
             }
         }
-        else if (chosenCategory == 11) { // Yahtzee scores
+        else if ((chosenCategory == 6) || (chosenCategory == 7)) { //3 & 4 of a kind scores
+            // need to calculate highest dice count, but the highest one
+            for(int i = 0; i < 5; i++) {
+
+            }
+        }
+        else if (chosenCategory == 11) { // Yahtzee scores **** ***** is the chosen category for Yahtzee right?
             int yahtzeeDiceNumber = findHighestDiceCount(diceHand);
             for(int i = 0; i < 5; i++) {
                 if (diceHand[i] == yahtzeeDiceNumber) {
@@ -108,7 +120,19 @@ public class AIPlayer extends Player {
 
     public float calculateKindOdds(int[] diceHand, int category) {
         int[] diceCount = giveDiceCount(diceHand);
+        int highestCount = findHighestDiceCount(diceCount);
 
+        if (highestCount >= 4) return 1;
+        if (category == 6) {
+            if(highestCount == 3) return 1;
+            if(highestCount == 2) return 0.421F;
+            if(highestCount == 1) return 0.132F;
+        }
+        if (category == 7) {
+            if(highestCount == 3) return 0.306F;
+            if(highestCount == 2) return 0.069F;
+            if(highestCount == 1) return 0.015F;
+        }
         return 0;
     }
 
