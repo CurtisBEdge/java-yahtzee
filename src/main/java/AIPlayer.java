@@ -78,7 +78,7 @@ public class AIPlayer extends Player {
         
         if (chosenCategory < 6) { // Top section scores
             for(int i = 0; i < 5; i++) {
-                if (diceHand[i] == i + 1) {
+                if (diceHand[i] == chosenCategory + 1) {
                     diceChoices[i] = true;
                 } 
             }
