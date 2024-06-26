@@ -48,7 +48,7 @@ public class AIPlayer extends Player {
                 }
 
                 if ((i == 6) || (i == 7)){
-                    categoryOdds[i] = calculateTopSectionOdds(diceCount, i);
+                    categoryOdds[i] = calculateKindOdds(diceCount, i);
                 }
 
 
@@ -81,6 +81,8 @@ public class AIPlayer extends Player {
 
     public boolean[] chooseDiceToKeep(int[] diceHand, int chosenCategory){
         boolean[] diceChoices = {false, false, false, false, false};
+        int[] diceCount = giveDiceCount(diceHand);
+        int highestDiceCount = findHighestDiceCount(diceCount);
         
         if (chosenCategory < 6) { // Top section scores
             for(int i = 0; i < 5; i++) {
@@ -90,15 +92,15 @@ public class AIPlayer extends Player {
             }
         }
         else if ((chosenCategory == 6) || (chosenCategory == 7)) { //3 & 4 of a kind scores
-            // need to calculate highest dice count, but the highest one
             for(int i = 0; i < 5; i++) {
-
+                if(diceHand[i] == highestDiceCount +1) {
+                    diceChoices[i] = true;
+                }
             }
         }
         else if (chosenCategory == 11) { // Yahtzee scores **** ***** is the chosen category for Yahtzee right?
-            int yahtzeeDiceNumber = findHighestDiceCount(diceHand);
             for(int i = 0; i < 5; i++) {
-                if (diceHand[i] == yahtzeeDiceNumber) {
+                if (diceHand[i] == highestDiceCount + 1) {
                     diceChoices[i] = true;
                 }
             }
@@ -118,8 +120,7 @@ public class AIPlayer extends Player {
     }
 
 
-    public float calculateKindOdds(int[] diceHand, int category) {
-        int[] diceCount = giveDiceCount(diceHand);
+    public float calculateKindOdds(int[] diceCount, int category) {
         int highestCount = findHighestDiceCount(diceCount);
 
         if (highestCount >= 4) return 1;
@@ -178,7 +179,7 @@ public class AIPlayer extends Player {
         int highestCount = 0;
         int highestNumber = 0;
         for(int i = 0; i < 6; i++) {
-            if(diceCount[i] > highestNumber) {
+            if(diceCount[i] >= highestNumber) {
                 highestCount = i;
                 highestNumber = diceCount[i];
             }
