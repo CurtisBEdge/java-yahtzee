@@ -83,6 +83,7 @@ public class AIPlayer extends Player {
         boolean[] diceChoices = {false, false, false, false, false};
         int[] diceCount = giveDiceCount(diceHand);
         int highestDiceCount = findHighestDiceCount(diceCount);
+        int highestDiceCountNumber = findHighestDiceCountNumber(diceCount);
         
         if (chosenCategory < 6) { // Top section scores
             for(int i = 0; i < 5; i++) {
@@ -93,14 +94,14 @@ public class AIPlayer extends Player {
         }
         else if ((chosenCategory == 6) || (chosenCategory == 7)) { //3 & 4 of a kind scores
             for(int i = 0; i < 5; i++) {
-                if(diceHand[i] == highestDiceCount +1) {
+                if(diceHand[i] == highestDiceCountNumber) {
                     diceChoices[i] = true;
                 }
             }
         }
         else if (chosenCategory == 11) { // Yahtzee scores **** ***** is the chosen category for Yahtzee right?
             for(int i = 0; i < 5; i++) {
-                if (diceHand[i] == highestDiceCount + 1) {
+                if (diceHand[i] == highestDiceCountNumber) {
                     diceChoices[i] = true;
                 }
             }
@@ -177,15 +178,26 @@ public class AIPlayer extends Player {
 
     public int findHighestDiceCount(int[] diceCount) {
         int highestCount = 0;
-        int highestNumber = 0;
         for(int i = 0; i < 6; i++) {
-            if(diceCount[i] >= highestNumber) {
-                highestCount = i;
-                highestNumber = diceCount[i];
+            if(diceCount[i] >= highestCount) {
+                highestCount = diceCount[i];
             }
         }
 
         return highestCount;
+    }
+
+    public int findHighestDiceCountNumber(int[] diceCount) {
+        int highestCount = 0;
+        int highestNumber = 0;
+        for(int i = 0; i < 6; i++) {
+            if(diceCount[i] >= highestCount) {
+                highestCount = diceCount[i];
+                highestNumber = i + 1;
+            }
+        }
+
+        return highestNumber; 
     }
 
 
