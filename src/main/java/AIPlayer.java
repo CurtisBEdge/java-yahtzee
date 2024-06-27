@@ -12,7 +12,7 @@ public class AIPlayer extends Player {
 
 
     public void runAITurn() {
-        int rolls = 1;
+        int rolls = 0;
         boolean[] diceChoices = {false, false, false, false, false};
         int[] diceHand = {0, 0, 0, 0, 0};
         System.out.println("It's " + playerName + "'s turn");
@@ -21,7 +21,6 @@ public class AIPlayer extends Player {
             diceChoices = aIChooseDice(diceHand);
             rolls ++;
         } while ((rolls < 3) & (!keepAllDice(diceChoices)));
-        printDice(diceHand);
         int scoreChoice = aIChooseCategory(diceHand);
         System.out.println(scoreChoice);
         enterScore(scoreChoice, scorecard.calculateScore(diceHand, scoreChoice));
@@ -119,7 +118,6 @@ public class AIPlayer extends Player {
         else return 0.035F;
         
     }
-
 
     public float calculateKindOdds(int[] diceCount, int category) {
         int highestCount = findHighestDiceCount(diceCount);
