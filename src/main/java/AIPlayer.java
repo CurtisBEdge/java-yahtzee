@@ -138,7 +138,28 @@ public class AIPlayer extends Player {
 
     public float calculateFullHouseOdds(int[] diceHand) {
         int[] diceCount = giveDiceCount(diceHand);
+        int[] diceCountTotals = {0, 0, 0, 0, 0};
 
+        for (int i = 0; i < 6; i++) {
+            if(diceCount[i] == 5) {
+                return 1;
+            }
+            else if(diceCount[i] == 4) {
+                return 0.167F
+            }
+            else if (diceCount[i] == 3) {
+                diceCountTotals[2] ++ 1;
+            }
+            else if (diceCount[i] == 2) {
+                diceCountTotals[1] ++ 1;
+            }
+            else if (diceCount[i] == 1) {
+                diceCountTotals[0] ++ 1;
+            }
+
+        }
+
+        if ((diceCountTotals[2] == 1) && (diceCountTotals[1] == 1)) return 1;
 
         return 0;
     }
