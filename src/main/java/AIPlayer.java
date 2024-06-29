@@ -145,21 +145,24 @@ public class AIPlayer extends Player {
                 return 1;
             }
             else if(diceCount[i] == 4) {
-                return 0.167F
+                return 0.167F;
             }
             else if (diceCount[i] == 3) {
-                diceCountTotals[2] ++ 1;
+                diceCountTotals[2] ++;
             }
             else if (diceCount[i] == 2) {
-                diceCountTotals[1] ++ 1;
+                diceCountTotals[1] ++;
             }
             else if (diceCount[i] == 1) {
-                diceCountTotals[0] ++ 1;
+                diceCountTotals[0] ++;
             }
 
         }
 
         if ((diceCountTotals[2] == 1) && (diceCountTotals[1] == 1)) return 1;
+        if (diceCountTotals[1] == 2) return 0.333F;
+        if ((diceCountTotals[1] == 1) && (diceCountTotals[0] == 3)) return ;
+        if (diceCountTotals[0] == 5) return ;
 
         return 0;
     }
