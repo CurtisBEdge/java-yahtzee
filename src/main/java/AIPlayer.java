@@ -161,8 +161,8 @@ public class AIPlayer extends Player {
 
         if ((diceCountTotals[2] == 1) && (diceCountTotals[1] == 1)) return 1;
         if (diceCountTotals[1] == 2) return 0.333F;
-        if ((diceCountTotals[1] == 1) && (diceCountTotals[0] == 3)) return ;
-        if (diceCountTotals[0] == 5) return ;
+        if ((diceCountTotals[1] == 1) && (diceCountTotals[0] == 3)) return 0.056F;
+        if (diceCountTotals[0] == 5) return 0.039F;
 
         return 0;
     }
