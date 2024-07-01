@@ -50,6 +50,10 @@ public class AIPlayer extends Player {
                     categoryOdds[i] = calculateKindOdds(diceCount, i);
                 }
 
+                if (i == 8) {
+                    categoryOdds[i] = calculateFullHouse(diceHand, diceCount);
+                }
+
 
                 if (i == 12) {
                     categoryOdds[i] = calculateYahtzeeOdds(diceHand, diceCount);
@@ -98,6 +102,11 @@ public class AIPlayer extends Player {
                 }
             }
         }
+        else if (chosenCategory == 8) { //Full house
+
+        }
+
+
         else if (chosenCategory == 11) { // Yahtzee scores **** ***** is the chosen category for Yahtzee right?
             for(int i = 0; i < 5; i++) {
                 if (diceHand[i] == highestDiceCountNumber) {
@@ -136,8 +145,7 @@ public class AIPlayer extends Player {
         return 0;
     }
 
-    public float calculateFullHouseOdds(int[] diceHand) {
-        int[] diceCount = giveDiceCount(diceHand);
+    public float calculateFullHouseOdds(int[] diceHand, int[]diceCount) {
         int[] diceCountTotals = {0, 0, 0, 0, 0};
 
         for (int i = 0; i < 6; i++) {
