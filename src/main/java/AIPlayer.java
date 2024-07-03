@@ -177,7 +177,27 @@ public class AIPlayer extends Player {
 
     public float calculateStraightOdds(int[] diceHand, int category) {
         int[] diceCount = giveDiceCount(diceHand);
+        int highestStreak = 0;
+        int zeroCount = 0;
 
+        for (int i = 0; i < 6; i++) {
+            if (diceCount[i] > 0) highestStreak ++;
+            else {
+                highestStreak = 0;
+                zeroCount ++;
+            }
+        }
+
+        if (highestStreak = 5) return 1;
+        if (highestStreak = 4) {
+            if (category == 10) return 0.167F;
+            else return 1;
+        }
+        if (highestStreak = 3) {
+            if (category == 10) {
+                
+            }
+        }
 
         return 0;
     }
