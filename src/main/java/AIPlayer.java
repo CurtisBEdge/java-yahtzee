@@ -104,6 +104,9 @@ public class AIPlayer extends Player {
         }
         else if (chosenCategory == 8) { //Full house
 
+            for(int i = 0; i < 5; i++) {
+                if(diceCount[diceHand[i] -1 ] > 1) diceChoices[i] = true;
+            }
         }
 
 
