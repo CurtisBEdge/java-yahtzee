@@ -51,12 +51,15 @@ public class AIPlayer extends Player {
                 }
 
                 if (i == 8) {
-                    categoryOdds[i] = calculateFullHouse(diceHand, diceCount);
+                    categoryOdds[i] = calculateFullHouseOdds(diceHand, diceCount);
                 }
 
+                if ((i == 9) || (i == 10)) {
+                    categoryOdds[i] = calculateStraightOdds(diceHand, i);
+                }
 
                 if (i == 12) {
-                    categoryOdds[i] = calculateYahtzeeOdds(diceHand, diceCount);
+                    categoryOdds[i] = calculateYahtzeeOdds(diceCount);
                 } 
                 
             }
@@ -103,9 +106,21 @@ public class AIPlayer extends Player {
             }
         }
         else if (chosenCategory == 8) { //Full house
-
             for(int i = 0; i < 5; i++) {
                 if(diceCount[diceHand[i] -1 ] > 1) diceChoices[i] = true;
+            }
+        }
+        else if ((chosenCategory == 9) || (chosenCategory == 10)) {
+            int highestStreak = calculateHighestStreak(diceCount);
+
+            if(highestStreak == 5) {
+                for(int i = 0; i < 5; i++) {
+                    diceChoices[i] = true;
+                }
+            };
+
+            if (highestStreak == 4) {
+                
             }
         }
 
@@ -180,32 +195,30 @@ public class AIPlayer extends Player {
 
     public float calculateStraightOdds(int[] diceHand, int category) {
         int[] diceCount = giveDiceCount(diceHand);
-        int highestStreak = 0;
-        int zeroCount = 0;
+        int highestStreak = calculateHighestStreak(diceCount);
 
-        for (int i = 0; i < 6; i++) {
-            if (diceCount[i] > 0) highestStreak ++;
-            else {
-                highestStreak = 0;
-                zeroCount ++;
-            }
-        }
-
-        if (highestStreak = 5) return 1;
-        if (highestStreak = 4) {
+        if (highestStreak == 5) return 1;
+        if (highestStreak == 4) {
             if (category == 10) return 0.167F;
             else return 1;
         }
-        if (highestStreak = 3) {
-            if (category == 10) {
-                
-            }
+        if (highestStreak == 3) {
+            if (category == 10) return 0.028F;
+            else return 0.167F;
+        }
+        if (highestStreak == 2) {
+            if (category == 10) return 0.005F;
+            else return 0.167F;
+        }
+        if (highestStreak == 1) {
+            if (category == 10) return 0.001F;
+            else return 0.005F;
         }
 
         return 0;
     }
 
-    public float calculateYahtzeeOdds(int[] diceHand, int[] diceCount) {
+    public float calculateYahtzeeOdds(int[] diceCount) {
         int highestCount = findHighestDiceCount(diceCount);
         
         switch(highestCount){
@@ -218,6 +231,16 @@ public class AIPlayer extends Player {
         return 0;
     }
 
+    public int calculateHighestStreak (int[] diceCount) {
+        int highestStreak = 0;
+
+        for (int i = 0; i < 6; i++) {
+            if (diceCount[i] > 0) highestStreak++;
+            else highestStreak = 0;
+        }
+
+        return highestStreak;
+    }
 
     public int[] giveDiceCount(int[] diceHand) {
         int[] diceCount = {0, 0, 0, 0, 0, 0};
