@@ -276,6 +276,49 @@ public class AIPlayer extends Player {
         return highestNumber; 
     }
 
+    public int findMostLikelyLowStraight(int[] diceHand) {
+        ArrayList<int> diceNumbers = new ArrayList<int>();
+
+        for(int i = 1; i <= 6; i++) diceNumbers.add(i);
+        
+        int straight1 = 0;
+        int straight2 = 0;
+        int straight3 = 0;
+
+        for(int j = 1; j < diceHand.length. j++) {
+            if(diceNumbers.contains(diceHand[i])) {
+                diceNumbers.remove(diceHand[i])
+                if(diceHand[i] < 5) straight1 ++;
+                else if((diceHand[i] > 1) && (diceHand[i] < 6)) straight2 ++;
+                else if(diceHand[i] > 2) straight3 ++;
+            }
+        }
+
+        if((straight3 >= straight2) && (straight3 >= straight1)) return straight3;
+        if(straight2 >= straight1) return straight2;
+        else return straight1;
+    }
+
+    public int findMostLikelyHighStraight(int[] diceHand) {
+        ArrayList<int> diceNumbers = new ArrayList<int>();
+
+        for(int i = 1; i <= 6; i++) diceNumbers.add(i);
+        
+        int straight1 = 0;
+        int straight2 = 0;
+
+        for(int j = 1; j < diceHand.length. j++) {
+            if(diceNumbers.contains(diceHand[i])) {
+                diceNumbers.remove(diceHand[i])
+                if(diceHand[i] < 6) straight1 ++;
+                if(diceHand[i] > 1) straight2 ++;
+            }
+        }
+
+        if((straight2 >= straight1) return straight2;
+        else return straight1;
+    }
+
 
 
     public int aIChooseCategory (int[] diceHand) {
