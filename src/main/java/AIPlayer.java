@@ -110,18 +110,16 @@ public class AIPlayer extends Player {
                 if(diceCount[diceHand[i] -1 ] > 1) diceChoices[i] = true;
             }
         }
+
         else if ((chosenCategory == 9) || (chosenCategory == 10)) {
-            int highestStreak = calculateHighestStreak(diceCount);
+            int chosenStraight;
+            boolean probability = false;
+            int[] straightList;
 
-            if(highestStreak == 5) {
-                for(int i = 0; i < 5; i++) {
-                    diceChoices[i] = true;
-                }
-            };
+            if(chosenCategory == 9) chosenStraight = findMostLikelyLowStraight(diceHand, probability);
+            else chosenStraight = findMostLikelyHighStraight(diceHand, probability);
 
-            if (highestStreak == 4) {
-                
-            }
+            if(chosenCategory == 9)
         }
 
 
@@ -194,28 +192,55 @@ public class AIPlayer extends Player {
     }
 
     public float calculateStraightOdds(int[] diceHand, int category) {
-        int[] diceCount = giveDiceCount(diceHand);
-        int highestStreak = calculateHighestStreak(diceCount);
+        //int[] diceCount = giveDiceCount(diceHand);
+        //int highestStreak = calculateHighestStreak(diceCount);
 
-        if (highestStreak == 5) return 1;
-        if (highestStreak == 4) {
-            if (category == 10) return 0.167F;
+        //if (highestStreak == 5) return 1;
+        //if (highestStreak == 4) {
+        //   if (category == 10) return 0.167F;
+        //    else return 1;
+        //}
+        //if (highestStreak == 3) {
+        //    if (category == 10) return 0.028F;
+        //    else return 0.167F;
+        //}
+        //if (highestStreak == 2) {
+        //    if (category == 10) return 0.005F;
+        //    else return 0.167F;
+        //}
+        //if (highestStreak == 1) {
+        //    if (category == 10) return 0.001F;
+        //    else return 0.005F;
+        //}
+
+        //return 0;
+
+        int bestStraightDice = 0;
+        boolean probability = true;
+
+        if (category == 9) bestStraightDice = findMostLikelyLowStraight(diceHand, probability);
+        else bestStraightDice = findMostLikelyHighStraight(diceHand, probability);
+
+        if (bestStraightDice == 5) return 1;
+        if (bestStraightDice == 4) {
+           if (category == 10) return 0.167F;
             else return 1;
         }
-        if (highestStreak == 3) {
+        if (bestStraightDice == 3) {
             if (category == 10) return 0.028F;
             else return 0.167F;
         }
-        if (highestStreak == 2) {
+        if (bestStraightDice == 2) {
             if (category == 10) return 0.005F;
             else return 0.167F;
         }
-        if (highestStreak == 1) {
+        if (bestStraightDice == 1) {
             if (category == 10) return 0.001F;
             else return 0.005F;
         }
 
         return 0;
+
     }
 
     public float calculateYahtzeeOdds(int[] diceCount) {
@@ -276,7 +301,7 @@ public class AIPlayer extends Player {
         return highestNumber; 
     }
 
-    public int findMostLikelyLowStraight(int[] diceHand) {
+    public int findMostLikelyLowStraight(int[] diceHand, boolean probability) {
         ArrayList<int> diceNumbers = new ArrayList<int>();
 
         for(int i = 1; i <= 6; i++) diceNumbers.add(i);
@@ -294,12 +319,20 @@ public class AIPlayer extends Player {
             }
         }
 
-        if((straight3 >= straight2) && (straight3 >= straight1)) return straight3;
-        if(straight2 >= straight1) return straight2;
-        else return straight1;
+        if((straight3 >= straight2) && (straight3 >= straight1)) {
+            if(probability) return straight3;
+            else return 3;
+            };
+        if(straight2 >= straight1) {
+            if(probability) return straight2;
+            else return 2;
+        }
+        else 
+            if(probability) return straight1;
+            else return 1;
     }
 
-    public int findMostLikelyHighStraight(int[] diceHand) {
+    public int findMostLikelyHighStraight(int[] diceHand, boolean probability) {
         ArrayList<int> diceNumbers = new ArrayList<int>();
 
         for(int i = 1; i <= 6; i++) diceNumbers.add(i);
@@ -315,8 +348,13 @@ public class AIPlayer extends Player {
             }
         }
 
-        if((straight2 >= straight1) return straight2;
-        else return straight1;
+        if((straight2 >= straight1) {
+            if(probability) return straight2;
+            else return 2;
+        }
+        else 
+            if(probability) return straight1;
+            else return 1;
     }
 
 
