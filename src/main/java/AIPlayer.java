@@ -114,14 +114,31 @@ public class AIPlayer extends Player {
         else if ((chosenCategory == 9) || (chosenCategory == 10)) {
             int chosenStraight;
             boolean probability = false;
-            int[] straightList;
+            ArrayList<int> straightList = new ArrayList<>();
 
             if(chosenCategory == 9) chosenStraight = findMostLikelyLowStraight(diceHand, probability);
             else chosenStraight = findMostLikelyHighStraight(diceHand, probability);
 
-            if(chosenCategory == 9)
-        }
+            for(int i = 1; i < 7; i ++) {
+                if(chosenCategory == 9) {
+                    if((chosenStraight == 1) && (i < 5)) straightList.add(i);
+                    if((chosenStraight == 2) && (i < 6) && (i > 1)) straightList.add(i);
+                    if((chosenStraight == 3) && (i > 2)) straightList.add(i);
+                }
+                else {
+                    if((chosenStraight == 1) && (i < 6)) straightList.add(i);
+                    if((chosenStraight == 2) && (i > 1)) straightList.add(i);
+                }
+            
+            }
 
+            for(int j = 0; i < 6; i ++) {
+                if(straightList.contains(diceHand[j])) {
+                    diceChoices[j] = true;
+                    straightList.remove(diceHand[j])
+                }
+            }
+        }
 
         else if (chosenCategory == 11) { // Yahtzee scores **** ***** is the chosen category for Yahtzee right?
             for(int i = 0; i < 5; i++) {
