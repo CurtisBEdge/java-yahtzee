@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AIPlayer extends Player {
@@ -114,7 +115,7 @@ public class AIPlayer extends Player {
         else if ((chosenCategory == 9) || (chosenCategory == 10)) {
             int chosenStraight;
             boolean probability = false;
-            ArrayList<int> straightList = new ArrayList<>();
+            ArrayList<Integer> straightList = new ArrayList<>();
 
             if(chosenCategory == 9) chosenStraight = findMostLikelyLowStraight(diceHand, probability);
             else chosenStraight = findMostLikelyHighStraight(diceHand, probability);
@@ -132,10 +133,11 @@ public class AIPlayer extends Player {
             
             }
 
-            for(int j = 0; i < 6; i ++) {
+            for(int j = 0; j < 5; j ++) {
                 if(straightList.contains(diceHand[j])) {
                     diceChoices[j] = true;
-                    straightList.remove(diceHand[j])
+                    Integer numberToBeRemoved = diceHand[j];
+                    straightList.remove(numberToBeRemoved);
                 }
             }
         }
@@ -319,7 +321,7 @@ public class AIPlayer extends Player {
     }
 
     public int findMostLikelyLowStraight(int[] diceHand, boolean probability) {
-        ArrayList<int> diceNumbers = new ArrayList<int>();
+        ArrayList<Integer> diceNumbers = new ArrayList<>();
 
         for(int i = 1; i <= 6; i++) diceNumbers.add(i);
         
@@ -327,12 +329,16 @@ public class AIPlayer extends Player {
         int straight2 = 0;
         int straight3 = 0;
 
-        for(int j = 1; j < diceHand.length. j++) {
-            if(diceNumbers.contains(diceHand[i])) {
-                diceNumbers.remove(diceHand[i])
-                if(diceHand[i] < 5) straight1 ++;
-                else if((diceHand[i] > 1) && (diceHand[i] < 6)) straight2 ++;
-                else if(diceHand[i] > 2) straight3 ++;
+
+
+        for(int j = 0; j < 5; j++) {
+
+            if(diceNumbers.contains(diceHand[j])) {
+                Integer numberToBeRemoved = diceHand[j];
+                diceNumbers.remove(numberToBeRemoved);
+                if(diceHand[j] < 5) straight1 ++;
+                if((diceHand[j] > 1) && (diceHand[j] < 6)) straight2 ++;
+                if(diceHand[j] > 2) straight3 ++;
             }
         }
 
@@ -350,22 +356,23 @@ public class AIPlayer extends Player {
     }
 
     public int findMostLikelyHighStraight(int[] diceHand, boolean probability) {
-        ArrayList<int> diceNumbers = new ArrayList<int>();
+        ArrayList<Integer> diceNumbers = new ArrayList<>();
 
         for(int i = 1; i <= 6; i++) diceNumbers.add(i);
         
         int straight1 = 0;
         int straight2 = 0;
 
-        for(int j = 1; j < diceHand.length. j++) {
-            if(diceNumbers.contains(diceHand[i])) {
-                diceNumbers.remove(diceHand[i])
-                if(diceHand[i] < 6) straight1 ++;
-                if(diceHand[i] > 1) straight2 ++;
+        for(int j = 0; j < 5; j++) {
+            if(diceNumbers.contains(diceHand[j])) {
+                Integer numberToBeRemoved = diceHand[j];
+                diceNumbers.remove(numberToBeRemoved);
+                if(diceHand[j] < 6) straight1 ++;
+                if(diceHand[j] > 1) straight2 ++;
             }
         }
 
-        if((straight2 >= straight1) {
+        if(straight2 >= straight1) {
             if(probability) return straight2;
             else return 2;
         }
