@@ -69,7 +69,7 @@ public class Scorecard {
         }
     }
 
-    private int calculateTopScores(int[] diceHand, int scoreChoice) {
+    public int calculateTopScores(int[] diceHand, int scoreChoice) {
         int count = 0;
         for (int i = 0; i < 5; i++) {
             if (diceHand[i] == scoreChoice) {
@@ -79,7 +79,7 @@ public class Scorecard {
         return count * scoreChoice;
     }
 
-    private int calculateXOfAKind(int[] diceHand, int scoreChoice) {
+    public int calculateXOfAKind(int[] diceHand, int scoreChoice) {
         for (int i = 1; i < 7; i++) {
             int count = 0;
             for (int j = 0; j < 5; j++) {
@@ -96,7 +96,7 @@ public class Scorecard {
         return 0;
     }
 
-    private int calculateFullHouse(int[] diceHand) {
+    public int calculateFullHouse(int[] diceHand) {
         if (diceHand[0] == diceHand[4]) //Checks if all dice are equal
             return 25;
         if ((diceHand[0] == diceHand[1] && diceHand[2] == diceHand[4]) //Checks if Full House is pair & 3 of a kind
@@ -105,7 +105,7 @@ public class Scorecard {
         return 0;
     }
 
-    private int calculateStraight(int[] diceHand, int scoreChoice) {
+    public int calculateStraight(int[] diceHand, int scoreChoice) {
         int straightCount = 0;
 
         //Calculates the amount of consecutive numbers are in the hand
@@ -123,14 +123,14 @@ public class Scorecard {
 
     }
 
-    private int calculateYahtzee(int[] diceHand) {
+    public int calculateYahtzee(int[] diceHand) {
         for (int i = 0; i < 4; i++)
             if(diceHand[i] != diceHand[i+1]) return 0;
 
         return 50;
     }
 
-    private int calculateDiceTotal(int[] diceHand) {
+    public int calculateDiceTotal(int[] diceHand) {
         return Arrays.stream(diceHand).sum();
     }
 
