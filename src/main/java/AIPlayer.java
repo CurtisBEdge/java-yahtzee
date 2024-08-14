@@ -211,28 +211,6 @@ public class AIPlayer extends Player {
     }
 
     public float calculateStraightOdds(int[] diceHand, int category) {
-        //int[] diceCount = giveDiceCount(diceHand);
-        //int highestStreak = calculateHighestStreak(diceCount);
-
-        //if (highestStreak == 5) return 1;
-        //if (highestStreak == 4) {
-        //   if (category == 10) return 0.167F;
-        //    else return 1;
-        //}
-        //if (highestStreak == 3) {
-        //    if (category == 10) return 0.028F;
-        //    else return 0.167F;
-        //}
-        //if (highestStreak == 2) {
-        //    if (category == 10) return 0.005F;
-        //    else return 0.167F;
-        //}
-        //if (highestStreak == 1) {
-        //    if (category == 10) return 0.001F;
-        //    else return 0.005F;
-        //}
-
-        //return 0;
 
         int bestStraightDice = 0;
         boolean probability = true;
@@ -384,21 +362,37 @@ public class AIPlayer extends Player {
 
 
     public int aIChooseCategory (int[] diceHand) {
+        //int[] potentialScores = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        //int highestScore = -1;
+        //int highestScoreCategory = -1;
+
+//        for(int i = 0; i < 13; i++ ) {
+//            if(scorecard.getScore(i).isEmpty()) potentialScores[i] = scorecard.calculateScore(diceHand, i + 1);
+//        }
+//        System.out.println(Arrays.toString(potentialScores));
+//        for(int i = 0; i < 13; i++ ) {
+//            if(potentialScores[i] > highestScore) {
+//                highestScoreCategory = i + 1;
+//               highestScore = potentialScores[i];
+//            }
+//        }
+//
+//        return highestScoreCategory;
+
         int[] potentialScores = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-        int highestScore = -1;
-        int highestScoreCategory = -1;
+        int chosenCategory = -1;
+        int topSectionTotal = 0;
+        int[] diceCountTotals = giveDiceCount(diceHand);
 
         for(int i = 0; i < 13; i++ ) {
             if(scorecard.getScore(i).isEmpty()) potentialScores[i] = scorecard.calculateScore(diceHand, i + 1);
-        }
-        System.out.println(Arrays.toString(potentialScores));
-        for(int i = 0; i < 13; i++ ) {
-            if(potentialScores[i] > highestScore) {
-                highestScoreCategory = i + 1;
-                highestScore = potentialScores[i];
-            }
+
+            if((i < 6) && (potentialScores[i] > 0) topSectionTotal = topSectionTotal + potentialScores[i];
         }
 
-        return highestScoreCategory;
+        if(potentialScores[11] > 0) return 11; //chosing yahtzee
+        if(potentialScores[10] > 0) return 10; //chosing high straight
+        if(potentialScores[11] > 0) return 9; //chosing low straight
+
     }
 }
