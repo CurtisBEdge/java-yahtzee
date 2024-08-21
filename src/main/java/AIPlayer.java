@@ -393,6 +393,20 @@ public class AIPlayer extends Player {
         if(potentialScores[11] > 0) return 11; //chosing yahtzee
         if(potentialScores[10] > 0) return 10; //chosing high straight
         if(potentialScores[11] > 0) return 9; //chosing low straight
+        if(potentialScores[9] > 0) {
+            for(int j = 3; j < 6; ++) {
+                if((diceCountTotals[j] == 3) && (potentialScores[j] == -1)) return 9;
+            }
+        }
+        
+        for(int k = 0; k < 6; k ++) {
+            if((diceCountTotals[k] >= 3) && (potentialScores[k] > 0)) return k + 1; //returns the category number for the top section if there's 3 or more of a kind
+            if((diceCountTotals[k] >= 4) && (potentialScores[7] > 0)) return 8; //returns the Four of a Kind category number if you have 4OAK and the top section number is already filled
+            if((diceCountTotals[k] >= 3) && (potentialScores[6] > 0)) return 7; //returns the Three of a Kind category number if you have 3OAK and the top section number is already filled
+        }
 
+        if(potentialScores[12] > 0) return 13;
+        if(potentialScores[7] > -1) return 8;
+        if(potentialScores[11] > -1) return 12;
     }
 }
