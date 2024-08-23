@@ -383,6 +383,8 @@ public class AIPlayer extends Player {
         int chosenCategory = -1;
         int topSectionTotal = 0;
         int[] diceCountTotals = giveDiceCount(diceHand);
+        int highestScore = -1;
+        int highestScoreCategory = -1;
 
         for(int i = 0; i < 13; i++ ) {
             if(scorecard.getScore(i).isEmpty()) potentialScores[i] = scorecard.calculateScore(diceHand, i + 1);
@@ -405,8 +407,20 @@ public class AIPlayer extends Player {
             if((diceCountTotals[k] >= 3) && (potentialScores[6] > 0)) return 7; //returns the Three of a Kind category number if you have 3OAK and the top section number is already filled
         }
 
+        // Working out where to put bad hands
         if(potentialScores[12] > 0) return 13;
         if(potentialScores[7] > -1) return 8;
         if(potentialScores[11] > -1) return 12;
+        if(potentialScores[0] > -1) return 1;
+        if(potentialScores[10] > -1) return 11;
+
+        for(int i = 0; i < 13; i++ ) {
+            if(potentialScores[i] > highestScore) {
+                highestScoreCategory = i + 1;
+               highestScore = potentialScores[i];
+            }
+        }
+        
+        return highestScoreCategory;
     }
 }
