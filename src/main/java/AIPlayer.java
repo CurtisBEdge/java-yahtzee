@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AIPlayer extends Player {
 
@@ -52,7 +51,7 @@ public class AIPlayer extends Player {
                 }
 
                 if (i == 8) {
-                    categoryOdds[i] = calculateFullHouseOdds(diceHand, diceCount);
+                    categoryOdds[i] = calculateFullHouseOdds(diceCount);
                 }
 
                 if ((i == 9) || (i == 10)) {
@@ -80,7 +79,7 @@ public class AIPlayer extends Player {
             if (scores[i] > highestRatio) {
                 highestRatio = scores[i];
                 highestScoreCategory = i;
-            };
+            }
         }
         
         return highestScoreCategory;
@@ -89,7 +88,6 @@ public class AIPlayer extends Player {
     public boolean[] chooseDiceToKeep(int[] diceHand, int chosenCategory){
         boolean[] diceChoices = {false, false, false, false, false};
         int[] diceCount = giveDiceCount(diceHand);
-        int highestDiceCount = findHighestDiceCount(diceCount);
         int highestDiceCountNumber = findHighestDiceCountNumber(diceCount);
         
         if (chosenCategory < 6) { // Top section scores
@@ -180,7 +178,7 @@ public class AIPlayer extends Player {
         return 0;
     }
 
-    public float calculateFullHouseOdds(int[] diceHand, int[]diceCount) {
+    public float calculateFullHouseOdds(int[]diceCount) {
         int[] diceCountTotals = {0, 0, 0, 0, 0};
 
         for (int i = 0; i < 6; i++) {
@@ -212,7 +210,7 @@ public class AIPlayer extends Player {
 
     public float calculateStraightOdds(int[] diceHand, int category) {
 
-        int bestStraightDice = 0;
+        int bestStraightDice;
         boolean probability = true;
 
         if (category == 9) bestStraightDice = findMostLikelyLowStraight(diceHand, probability);
@@ -251,17 +249,6 @@ public class AIPlayer extends Player {
             case 1: return 0.001F;
         }
         return 0;
-    }
-
-    public int calculateHighestStreak (int[] diceCount) {
-        int highestStreak = 0;
-
-        for (int i = 0; i < 6; i++) {
-            if (diceCount[i] > 0) highestStreak++;
-            else highestStreak = 0;
-        }
-
-        return highestStreak;
     }
 
     public int[] giveDiceCount(int[] diceHand) {
@@ -323,7 +310,7 @@ public class AIPlayer extends Player {
         if((straight3 >= straight2) && (straight3 >= straight1)) {
             if(probability) return straight3;
             else return 3;
-            };
+            }
         if(straight2 >= straight1) {
             if(probability) return straight2;
             else return 2;
@@ -380,7 +367,6 @@ public class AIPlayer extends Player {
 //        return highestScoreCategory;
 
         int[] potentialScores = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-        int chosenCategory = -1;
         int topSectionTotal = 0;
         int[] diceCountTotals = giveDiceCount(diceHand);
         int highestScore = -1;
@@ -389,14 +375,14 @@ public class AIPlayer extends Player {
         for(int i = 0; i < 13; i++ ) {
             if(scorecard.getScore(i).isEmpty()) potentialScores[i] = scorecard.calculateScore(diceHand, i + 1);
 
-            if((i < 6) && (potentialScores[i] > 0) topSectionTotal = topSectionTotal + potentialScores[i];
+            if((i < 6) && (potentialScores[i] > 0)) topSectionTotal = topSectionTotal + potentialScores[i];
         }
 
-        if(potentialScores[11] > 0) return 11; //chosing yahtzee
-        if(potentialScores[10] > 0) return 10; //chosing high straight
-        if(potentialScores[11] > 0) return 9; //chosing low straight
-        if(potentialScores[9] > 0) {
-            for(int j = 3; j < 6; ++) {
+        if(potentialScores[11] > 0) return 12; //choosing yahtzee
+        if(potentialScores[10] > 0) return 11; //choosing high straight
+        if(potentialScores[9] > 0) return 10; //choosing low straight
+        if(potentialScores[8] > 0) {
+            for(int j = 3; j < 6; j++) {
                 if((diceCountTotals[j] == 3) && (potentialScores[j] == -1)) return 9;
             }
         }
